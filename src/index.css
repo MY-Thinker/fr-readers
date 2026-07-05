@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --rouge: #9B2D20;
+  --xuan: #F5EFE0;
+  --jade: #3E5C50;
+  --ink: #1F1A17;
+  --gold: #C8A96A;
+  color-scheme: light;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  background-color: #EDE3CC;
+  color: #1F1A17;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+}
+
+/* 全局宣纸纹理背景 */
+body {
+  background-image:
+    radial-gradient(at 12% 18%, rgba(200, 169, 106, 0.18) 0px, transparent 45%),
+    radial-gradient(at 88% 12%, rgba(155, 45, 32, 0.08) 0px, transparent 40%),
+    radial-gradient(at 50% 92%, rgba(62, 92, 80, 0.08) 0px, transparent 50%),
+    linear-gradient(180deg, #F5EFE0 0%, #EDE3CC 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* 噪点叠加 - 模拟宣纸纤维 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+@layer components {
+  /* 印章 - 朱砂方印 */
+  .seal {
+    @apply inline-flex items-center justify-center bg-rouge-500 text-xuan-50 font-serif font-bold border-2 border-xuan-50/80 rounded-sm shadow-seal select-none;
+    letter-spacing: 0.15em;
+  }
+
+  /* 卷轴卡片 */
+  .scroll-card {
+    @apply relative bg-xuan-50/95 rounded-2xl shadow-card border border-gold-200/60;
+    background-image:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 30%),
+      radial-gradient(at top, rgba(200, 169, 106, 0.08), transparent 60%);
+  }
+
+  /* 卷轴上下金边 */
+  .scroll-card::before,
+  .scroll-card::after {
+    content: "";
+    @apply absolute left-4 right-4 h-px bg-gold-line;
+  }
+  .scroll-card::before {
+    @apply top-3;
+  }
+  .scroll-card::after {
+    @apply bottom-3;
+  }
+
+  /* 主按钮 - 朱砂印 */
+  .btn-seal {
+    @apply inline-flex items-center justify-center gap-2 bg-rouge-500 text-xuan-50 font-serif font-semibold tracking-wider rounded-md px-6 py-3 shadow-seal transition-all duration-300 active:translate-y-0.5 active:shadow-none hover:bg-rouge-600;
+  }
+
+  /* 副按钮 - 描线 */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 bg-transparent text-rouge-600 font-serif font-semibold tracking-wider rounded-md px-6 py-3 border border-rouge-500/60 transition-all duration-300 active:translate-y-0.5 hover:bg-rouge-50;
+  }
+
+  /* 章节标题 - 竖排印章 */
+  .section-title {
+    @apply font-serif font-bold text-ink-500 tracking-wider;
+  }
+
+  /* 装饰：水墨分隔线 */
+  .ink-divider {
+    @apply relative h-px w-full bg-gradient-to-r from-transparent via-ink-300/40 to-transparent my-6;
+  }
+}
+
+/* 隐藏滚动条（轮播容器） */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 文字渐隐描边（标题） */
+.title-stroke {
+  text-shadow:
+    0 1px 0 rgba(106, 30, 22, 0.25),
+    0 2px 8px rgba(31, 26, 23, 0.15);
+}
+
+/* 防止长按菜单 */
+* {
+  -webkit-touch-callout: none;
+}
